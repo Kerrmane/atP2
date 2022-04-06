@@ -87,7 +87,7 @@
                                             
                                             <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg"><?php echo $client['numero_client']?></td>
                                             <td><?php echo $client['raison_sociale']?></td>
-                                            <td><?php echo $client['numero_de_SIREN']?></td>
+                                            <td><?php echo $client['numero_de_siren']?></td>
                                             <td><?php echo $client['code_ape']?></td>
                                             
                                             <td><?php echo $client['adresse_posatle']?></td>
