@@ -1,6 +1,13 @@
 <?php 
 session_start();
 require('connexion.php');
+if (isset($_GET['deconnexion'])){
+    if ($_GET['deconnexion']==TRUE){
+        session_destroy();
+        header("location:pagedeConnexion.php");
+    }
+
+}
 
     $mdp=$_GET['mdp'];
     //echo "Le mot de pass est : $mdp";
@@ -12,21 +19,16 @@ require('connexion.php');
 
         if ($donne!=NULL) 
         {
-        // foreach ($donne as $moulaga){
-        //     echo " <tr>
-        //         <td>".$moulaga['prenom']."</td>
-        //         <td>".$moulaga['passwords']."</td>
-        //     </tr>" ;
-        //     }
+      
          $_SESSION['nomUtil']=$nomUtil;
          $_SESSION['mdp']=$mdp;
 
         header("Location: index.php" );
-            echo "bienvenue $nomUtil";
+            
         }
             else{
-                header("Location: pageDeConnexion.php" ); ?>       
-            <p style="color: red;">vous etes inconnus</p>
+                header("Location: pageDeConnexion.php?error=0" ); ?>       
+            
             <?php
 
         }

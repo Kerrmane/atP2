@@ -1,4 +1,12 @@
-<?php require('connexion.php'); ?>
+<?php
+session_start();
+require('connexion.php');
+
+
+if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
+    header("location:pageDeConnexion.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -45,7 +53,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="authentification.php?deconnexion=True"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                     </div>
                                 </div>
                             </li>
@@ -53,34 +61,45 @@
                     </div>
                 </nav>
                 
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+       
+                
+                            <div class="table-responsive table mx-5" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <form method="POST" action="table.php">         
+                                    <div class="input-group my-2 "style="width:40%;">
+                                        <input type="text" class="form-control rounded" placeholder="fiche client" aria-label="Search" aria-describedby="search-addon" name="ficheClient" />
+                                        <button type="submit" class="btn btn-outline-primary">chercher</button>
+                                    </div>
+                                </form>
+                                <?php
+                                if (isset($_POST['ficheClient']) && !empty($_POST['ficheClient']))
+                                {
+                                    $fiche= $_POST['ficheClient'] ;
+                                    
+                                    
+                                
+                                $result = $bdd->query("SELECT * FROM Client WHERE numero_client LIKE '%$fiche%' ");
+
+                                $result->execute();
+                                $clients = $result->fetchAll();
+                                ?>
+                                <div class="input-group">
+  
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th>N client</th>
                                             <th>raison Sociale</th>
-                                            <th>N SIREN</th>
+                                            
                                             <th>Code APE</th>
-                                            <th>Adresse</th>
+                                            <th>code postale</th>
                                             <th>N TEL</th>
                                             <th>mail</th>
-                                            <th>Durre</th>
-                                            <th>Distance KM</th>
-                                            <th>N agence</th>
+                                            
+                                            <th>action</th>
 
                                         </tr>
                                     </thead>
-                                           <?php
-                                $result = $bdd->query('SELECT * FROM Client');
-
-                                $result->execute();
-                                $clients = $result->fetchAll();
-
-                                
-                                    
-                                         
-                                         
-                                         ?>
+                                           
                                     <tbody>
                                  <?php  foreach ($clients as $client):?>
                                         <tr>
@@ -88,14 +107,13 @@
                                             <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg"><?php echo $client['numero_client']?></td>
                                             <td><?php echo $client['raison_sociale']?></td>
                                             <td><?php echo $client['numero_de_siren']?></td>
-                                            <td><?php echo $client['code_ape']?></td>
+                                            
                                             
                                             <td><?php echo $client['adresse_posatle']?></td>
-                                            <td><?php echo $client['numero_de_telephone']?></td>
-                                            <td><?php echo $client['adresse_mail']?></td>
-                                            <td><?php echo $client['Duree_Deplacement']?></td>
-                                            <td><?php echo $client['Distance_KM']?></td>
-                                            <td><?php echo $client['numero_agence']?></td>
+                                            <td><?php echo"0".$client['numero_de_telephone']?></td>
+                                            <td><?php echo $client['adresse_mail'] ?></td>
+                                            
+                                            <td><button class="btn btn-primary" ><a href="modifier.php?fiche=<?php echo $client['numero_client']?>" style="color:aliceblue">modifier</a></button></td>
 
                                         </tr>
                                         
@@ -116,10 +134,11 @@
                     <div class="text-center my-auto copyright"><span>Copyright © CashCash 2022</span></div>
                 </div>
             </footer>
-        </div><</div>
+        </div></div>
     
 
-    
+    <?php }
+    ?>
 
     
     

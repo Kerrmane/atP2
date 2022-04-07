@@ -30,19 +30,29 @@
                                         <h4 class="text-dark mb-4">Espace Admin</h4>
                                     </div>
                                     <form class="user" action="authentification.php" method="GET">
-    <div class="mb-3"><input id="exampleInputEmail" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Entrer le nom d'utilisateur" name="nomUtil" required/>
-    </div>
-    <div class="mb-3">
-        <input id="exampleInputPassword" class="form-control form-control-user" type="password" placeholder="Entrer le mot de passe" name="mdp" />
-    </div>
-    <div class="mb-3">
-        <div class="custom-control custom-checkbox small">
-            <div class="form-check"><input id="formCheck-1" class="form-check-input custom-control-input" type="checkbox" /><label class="form-check-label custom-control-label" for="formCheck-1">Souvenir de moi</label></div>
-        </div>
-    </div>
-    <div class="text-center col-md-12"><button class="btn btn-primary" type="submit" value="CONNEXION" name="connexion">Connexion</button></div>
+                                        <div class="mb-3">
+                                            <input id="exampleInputEmail" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Entrer le nom d'utilisateur" name="nomUtil" required/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input id="exampleInputPassword" class="form-control form-control-user" type="password" placeholder="Entrer le mot de passe" name="mdp" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="custom-control custom-checkbox small">
+                                                <div class="form-check"><input id="formCheck-1" class="form-check-input custom-control-input" type="checkbox" /><label class="form-check-label custom-control-label" for="formCheck-1">Souvenir de moi</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center col-md-12"><button class="btn btn-primary" type="submit" value="CONNEXION" name="connexion">Connexion</button>
+                                        </div>
+                                        <?php
+                                        if (isset($_GET['error']))
+                                         {
+                                            if($_GET['error']==0) ?>
+                                            <p style="color: red;">vous etes inconnus</p> 
+                                       <?php  }
+                                            ?>                                        
+                                        
     
-</form>
+                                    </form>
                                     
                                     
                                 </div>
