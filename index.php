@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('connexion.php');
-echo $_SESSION['role'];
+
 
 
 if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
