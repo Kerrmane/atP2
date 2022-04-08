@@ -10,18 +10,24 @@ if (isset($_GET['deconnexion'])){
 }
 
     $mdp=$_GET['mdp'];
-    //echo "Le mot de pass est : $mdp";
+    
     $nomUtil=$_GET['nomUtil'];
     
-        $req=$bdd->prepare("SELECT * FROM technicien WHERE numero_matricule='".$nomUtil."' AND nom_employe='".$mdp."';");
+        $req=$bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtil='".$nomUtil."' AND mdp='".$mdp."';");
         $req->execute();
-        $donne =$req->fetchAll(PDO::FETCH_OBJ);
+        $donne =$req->fetchAll();
 
         if ($donne!=NULL) 
+
         {
-      
+            foreach ($donne as $colone):
+
+                $role=$colone['role'];
+            endforeach ;
          $_SESSION['nomUtil']=$nomUtil;
          $_SESSION['mdp']=$mdp;
+         $_SESSION['role']=$role;
+         
 
         header("Location: index.php" );
             
