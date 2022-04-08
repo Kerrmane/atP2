@@ -63,7 +63,7 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
                 
        
                 
-                            <div class="table-responsive table mx-5" id="dataTable" role="grid"aria-describedby="dataTable_info">
+                            <div class="table-responsive  mx-5" id="dataTable" role="grid"aria-describedby="dataTable_info">
                                 <h2>Rechercher une fiche client</h2>
                                 <form method="POST" action="table.php">         
                                     <div class="input-group my-2 "style="width:40%;">
@@ -71,6 +71,15 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
                                         <button type="submit" class="btn btn-outline-primary">chercher</button>
                                     </div>
                                 </form>
+                                <?php 
+                                if (isset($_GET['succes'])){
+                                    if ($_GET['succes']==True){
+                                        
+                                        ?>
+                                        <p class="text-success">modification avec success</p>
+                                   <?php }
+                                }
+                                ?>
                                 <?php
                                 if (isset($_POST['ficheClient']) && !empty($_POST['ficheClient']))
                                 {
@@ -118,7 +127,7 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
 
                                         </tr>
                                         
- <?php  endforeach ;?>
+                                    <?php  endforeach ;?>
                                        
                                     </tbody>
                                     

@@ -4,32 +4,24 @@ use FontLib\Table\Type\head;
 
 session_start();
 require('connexion.php');
-
-
-
-if (isset($_POST['modifer'])){
-    if (!empty($_POST['nclient']) && !empty($_POST['raisonsocial']) && !empty($_POST['codepostale']) && !empty($_POST['mail']) && !empty($_POST['ape']) && !empty($_POST['numerotelephone'])) {
-        $nclient=$_POST['nclient'];
-        $raisonsocial=$_POST['raisonsocial'];
-        $codepostale=$_POST['codepostale'];
-        $ape=$_POST['ape'];
-        $mail=$_POST['mail'];
-        $num=$_POST['numerotelephone'];
+if (isset($_GET['fiche']) && !empty($_GET['fiche'])){
+    GLOBaL $fiche;
+    GLOBAL $clients;
+    $fiche=$_GET['fiche'];
+    $result = $bdd->query("SELECT * FROM Client WHERE numero_client =$fiche ");
         
-
-       $req=$bdd->query("UPDATE `client` SET `raison_sociale` = '$raisonsocial', `code_ape` = '$ape', `adresse_posatle` = '$codepostale', `numero_de_telephone` = '$num', `adresse_mail` = '$mail' WHERE `client`.`numero_client` = 1120;");
-    
-       $req->execute();
-       header("location:table.php?succes=True");
-       $bdd=null;
-       
-    }
-    else {
-        echo "erreur";
-    }
-    
-    
+        $result->execute();
+        $clients = $result->fetchAll(); 
 }
+else {
+    header("location:table.php");
+}
+
+
+
+
+
+
 ?>
 
 
@@ -89,13 +81,37 @@ if (isset($_POST['modifer'])){
                     </div>
                 </nav>
     <?php 
-    if (isset($_GET['fiche']) && !empty($_GET['fiche'])){
-        $fiche=$_GET['fiche'];
-        
-    $result = $bdd->query("SELECT * FROM Client WHERE numero_client =$fiche ");
     
-        $result->execute();
-        $clients = $result->fetchAll(); 
+        
+        
+
+       
+            if ( isset($_POST['modifer']) && !empty($_POST['nclient']) && !empty($_POST['raisonsocial']) && !empty($_POST['codepostale']) && !empty($_POST['mail']) && !empty($_POST['ape']) && !empty($_POST['numerotelephone'])) {
+                $nclient=$_POST['nclient'];
+                $raisonsocial=$_POST['raisonsocial'];
+                $codepostale=$_POST['codepostale'];
+                $ape=$_POST['ape'];
+                $mail=$_POST['mail'];
+                $num=$_POST['numerotelephone'];
+
+
+
+                $req=$bdd->query("UPDATE `client` SET `raison_sociale` = '$raisonsocial', `code_ape` = '$ape', `adresse_posatle` = '$codepostale', `numero_de_telephone` = '$num', `adresse_mail` = '$mail' WHERE `client`.`numero_client` = '1120';");
+                $req->execute();
+
+                header("location:table.php?succes=True");
+
+                $bdd=null;
+
+            }
+            
+            
+
+
+        
+        
+    
+
     ?>
     <?php  foreach ($clients as $client):?>
     <h1 class="text-center mt-4">Modification de fiche client</h1>
@@ -152,9 +168,10 @@ if (isset($_POST['modifer'])){
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4" name="modifer" value="submit">MODIFIER</button>
 </form>
-<?php  } ?> 
+
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/theme.js"></script> 
 </body>
 
 </html>
+<?php   ?>
