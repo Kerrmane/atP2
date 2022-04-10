@@ -26,8 +26,10 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>CashCAsh</span></div>
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3"><span>CashCAsh</span>
+                    </div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
@@ -60,104 +62,140 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
                         </ul>
                     </div>
                 </nav>
-                
+             
        
-                
-                            <div class="table-responsive  mx-5" id="dataTable" role="grid"aria-describedby="dataTable_info">
-                                <h2>Rechercher une fiche client</h2>
-                                <form method="POST" action="table.php">         
-                                    <div class="input-group my-2 "style="width:40%;">
-                                        <input type="text" class="form-control rounded" placeholder="Saisir le N fiche client" aria-label="Search" aria-describedby="search-addon" name="ficheClient" />
-                                        <button type="submit" class="btn btn-outline-primary">chercher</button>
-                                    </div>
-                                </form>
-                                <?php 
-                                if (isset($_GET['succes'])){
-                                    if ($_GET['succes']==True){
-                                        
-                                        ?>
-                                        <p class="text-success">modification avec success</p>
-                                   <?php }
-                                }
-                                ?>
-                                <?php
-                                if (isset($_POST['ficheClient']) && !empty($_POST['ficheClient']))
-                                {
-                                    $fiche= $_POST['ficheClient'] ;
-                                    
-                                    
-                                
-                                $result = $bdd->query("SELECT * FROM Client WHERE numero_client LIKE '%$fiche%' ");
+     <!-- partie tableau fiche client et la modification            -->
+        <div class="table-responsive  mx-5" id="dataTable" role="grid"aria-describedby="dataTable_info">
+            <h2>Rechercher une fiche client</h2>
+            <form method="POST" action="table.php">         
+            <div class="input-group my-2 "style="width:40%;">
+            <input type="text" class="form-control rounded" placeholder="Saisir le N fiche client" aria-label="Search" aria-describedby="search-addon" name="ficheClient" />
+            <button type="submit" class="btn btn-outline-primary">chercher</button>
+        </div>
+        </form>
+        <?php 
+        if (isset($_GET['succes'])){
+        if ($_GET['succes']==True){
 
-                                $result->execute();
-                                $clients = $result->fetchAll();
-                                ?>
-                                <div class="input-group">
-  
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>N client</th>
-                                            <th>raison Sociale</th>
-                                            
-                                            <th>Code APE</th>
-                                            <th>code postale</th>
-                                            <th>N TEL</th>
-                                            <th>mail</th>
-                                            
-                                            <th>action</th>
+        ?>
+        <p class="text-success">modification avec success</p>
+        <?php }
+        }
+        ?>
+        <?php
+        if (isset($_POST['ficheClient']) && !empty($_POST['ficheClient']))
+        {
+        $fiche= $_POST['ficheClient'] ;
 
-                                        </tr>
-                                    </thead>
-                                           
-                                    <tbody>
-                                 <?php  foreach ($clients as $client):?>
-                                        <tr>
-                                            
-                                            <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg"><?php echo $client['numero_client']?></td>
-                                            <td><?php echo $client['raison_sociale']?></td>
-                                            <td><?php echo $client['numero_de_siren']?></td>
-                                            
-                                            
-                                            <td><?php echo $client['adresse_posatle']?></td>
-                                            <td><?php echo"0".$client['numero_de_telephone']?></td>
-                                            <td><?php echo $client['adresse_mail'] ?></td>
-                                            
-                                            <td><button class="btn btn-primary" ><a href="modifier.php?fiche=<?php echo $client['numero_client']?>" style="color:aliceblue">modifier</a></button></td>
 
-                                        </tr>
-                                        
-                                    <?php  endforeach ;?>
-                                       
-                                    </tbody>
-                                    
-                                    
-                                </table>
-                            </div>
-                            
-                        </div>
-                    </div>
+
+        $result = $bdd->query("SELECT * FROM Client WHERE numero_client LIKE '%$fiche%' ");
+
+        $result->execute();
+        $clients = $result->fetchAll();
+        ?>
+        <div class="input-group">
+
+        <table class="table my-0" id="dataTable">
+            <thead>
+                <tr>
+                    <th>N client</th>
+                    <th>raison Sociale</th>
+                    <th>Code APE</th>
+                    <th>code postale</th>
+                    <th>N TEL</th>
+                    <th>mail</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <?php  foreach ($clients as $client):?>
+                <tr>
+
+                    <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg"><?php echo $client['numero_client']?></td>
+                    <td><?php echo $client['raison_sociale']?></td>
+                    <td><?php echo $client['numero_de_siren']?></td>
+                    <td><?php echo $client['adresse_posatle']?></td>
+                    <td><?php echo"0".$client['numero_de_telephone']?></td>
+                    <td><?php echo $client['adresse_mail'] ?></td>
+
+                    <td>
+                        <button class="btn btn-primary" >
+                        <a href="modifier.php?fiche=<?php echo $client['numero_client']?>" style="color:aliceblue">modifier</a>
+                        </button>
+                    </td>
+
+                </tr>
+
+            <?php  endforeach ;?>
+
+            </tbody>
+
+
+        </table>
+        </div>
+        <?php }?>
+<!-- Fin  partie tableau fiche client et la modification            -->
+
+<!-- paartie de intervention et la generation du pdf -->
+        <div class="table-responsive" id="dataTable" role="grid"aria-describedby="dataTable_info">
+            <h2>Rechercher une intervention</h2>
+            <form method="POST" action="table.php">         
+                <div class="input-group my-2 "style="width:40%;">
+                    <input type="text" class="form-control rounded" placeholder="Saisir le N d'intervention" aria-label="Search" aria-describedby="search-addon" name="ninter" />
+                    <button type="submit" class="btn btn-outline-primary">chercher</button>
+                </div>
+            </form>   
+        </div>
+        <?php
+        if (isset($_POST['ninter']) && !empty($_POST['ninter']))
+        {
+        $ninter= $_POST['ninter'] ;
+        $result = $bdd->query("SELECT * FROM intervention WHERE Numero_Intervention LIKE '%$ninter%' ");
+
+        $result->execute();
+        $inters = $result->fetchAll();
+        foreach ($inters as $ninter): 
+        ?>
+        <div class="input-group">
+            <table class="table my-0" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>N Intervention</th>
+                        <th>Date </th>
+                        <th>Heure</th>
+                        <th>N matricule</th>
+                        <th>N Client</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg"><?php echo $ninter['Numero_Intervention']?></td>
+                        <td><?php echo $ninter['Heure_Visite']?></td>
+                        <td><?php echo $ninter['Date_Visite']?></td>
+                        <td><?php echo$ninter['numero_matricule']?></td>
+                        <td><?php echo $ninter['numero_client'] ?></td>
+                        <td><button class="btn btn-primary" ><a href="pdf.php" style="color:aliceblue">pdf</a></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <?php
+        $_SESSION['ninter']=$ninter['Numero_Intervention'];
+         endforeach ; } ?>
+        </div>
+    </div>
+
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © CashCash 2022</span>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © CashCash 2022</span></div>
-                </div>
-            </footer>
-        </div></div>
-    
+        </footer>
+        
 
-    <?php }
-    ?>
-
-    
-    
-
-                                
-                     
-                  
-                   
-                    
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/theme.js"></script>
 </body>
