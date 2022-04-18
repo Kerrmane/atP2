@@ -155,7 +155,7 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
 
         $result->execute();
         $inters = $result->fetchAll();
-        foreach ($inters as $ninter): 
+         
         ?>
         <div class="input-group">
             <table class="table my-0" id="dataTable">
@@ -168,8 +168,8 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
                         <th>N Client</th>
                         <th>action</th>
                     </tr>
-                </thead>
-
+                </thead><?php foreach ($inters as $ninter): ?>
+                
                 <tbody>
                     <tr>
                         <td><img class="rounded-circle me-2" width="30" height="30" src="assets/img/avatars/avatar4.jpeg"><?php echo $ninter['Numero_Intervention']?></td>
@@ -177,14 +177,15 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
                         <td><?php echo $ninter['Date_Visite']?></td>
                         <td><?php echo$ninter['numero_matricule']?></td>
                         <td><?php echo $ninter['numero_client'] ?></td>
-                        <td><button class="btn btn-primary" ><a href="pdf.php" style="color:aliceblue">pdf</a></button></td>
+                        <td><button class="btn btn-primary" ><a href="pdf.php" style="color:aliceblue">générer le pdf</a></button></td>
+                        <?php
+                        $_SESSION['ninter']=$ninter['Numero_Intervention'];
+                        endforeach ; } ?>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <?php
-        $_SESSION['ninter']=$ninter['Numero_Intervention'];
-         endforeach ; } ?>
+        
         </div>
     </div>
 
