@@ -83,7 +83,7 @@ $result = $bdd->query("SELECT * FROM technicien  ");
                     <label><b> Le technecien : </b></label>
                     <select name="tech" id="" required="required">
                     <?php foreach ($techs as $tech): ?>
-                        <option value="<?php echo $tech['numero_matricule']?>" selected  ><?php echo $tech['nom_employe']?></option>
+                        <option value="<?php echo $tech['numero_matricule']?>" ><?php echo $tech['nom_employe']?></option>
                         
                         <?php endforeach ;
                          ?>

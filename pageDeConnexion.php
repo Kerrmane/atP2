@@ -38,11 +38,7 @@
                                         <div class="my-3">
                                             <input id="exampleInputPassword" class="form-control form-control-user" type="password" placeholder="Entrer le mot de passe" name="mdp" />
                                         </div>
-                                        <!-- <div class="mb-3">
-                                            <div class="custom-control custom-checkbox small">
-                                                <div class="form-check"><input id="formCheck-1" class="form-check-input custom-control-input" type="checkbox" /><label class="form-check-label custom-control-label" for="formCheck-1">Souvenir de moi</label></div>
-                                            </div>
-                                        </div> -->
+                                    
                                         <div class="text-center col-md-12 my-3"><button class="btn btn-primary" type="submit" value="CONNEXION" name="connexion">Connexion</button>
                                         </div>
                                         <?php

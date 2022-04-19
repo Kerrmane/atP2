@@ -6,6 +6,11 @@ require('connexion.php');
 if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
     header("location:pageDeConnexion.php");
 }
+$result = $bdd->query("SELECT * FROM technicien  ");
+
+        $result->execute();
+        $techs = $result->fetchAll();
+?>
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +25,7 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="assets/css/untitled.css">
+    <script src="https://kit.fontawesome.com/5614afca26.js" crossorigin="anonymous"></script>   
 </head>
 
 <body id="page-top">
@@ -62,7 +68,63 @@ if (!isset($_SESSION['mdp']) && !isset($_SESSION['nomUtil'])){
 
                 <section>
 
+                <div class="container col-6 ">
+                <div class="row justify-content-center ">
+            
+                <div class="card shadow-lg o-hidden border-0 my-5">
+                    
+                        <div class="row">
+                            
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center ">
+                                        <h4 class="text-dark my-5"> <i class="fa-solid fa-user "></i> Espace Admin</h4>
+                                    </div>
+                                    <form class="user" action="authentification.php" method="GET">
+                                        <div class="my-3">
+                                            <input id="exampleInputEmail" class="form-control form-control-user" type="text" aria-describedby="emailHelp" placeholder="Entrer le nom d'utilisateur" name="nomUtil" required/>
+                                        </div>
 
+                                        <div class="my-3">
+                                            <input id="exampleInputPassword" class="form-control form-control-user" type="password" placeholder="Entrer le mot de passe" name="mdp" />
+                                        </div>
+
+                                        <div class="my-3">
+                                        
+                                        <select name="tech" class="form-control form-control-user" required="required">
+                                        <?php foreach ($techs as $tech): ?>
+                                        <option value="<?php echo $tech['numero_matricule']?>"   ><?php echo $tech['nom_employe']?></option>
+
+                                        <?php endforeach ;
+                                        ?>
+                                        </select>
+                                        </div>
+
+                                        <div class="my-3">
+                                            <select name="" id="" class="form-control form-control-user">
+                                            <option value="tech" >technicien</option>
+                                            <option value="admin">Gestionnaire</option>
+                                            </select>
+                                            
+                                        </div>
+                                    
+                                        <div class="text-center col-md-12 my-3"><button class="btn btn-primary" type="submit" value="CONNEXION" name="connexion">S'enregistrer</button>
+                                        </div>
+                                        
+                                        
+                                                                               
+                                        
+    
+                                    </form>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                 </section>
                 
                         
